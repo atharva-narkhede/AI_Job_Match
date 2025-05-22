@@ -10,7 +10,6 @@ export default function Jobs() {
   const [loading, setLoading] = useState(true);
   const [recommending, setRecommending] = useState(false);
 
-  // Fetch all jobs on load
   useEffect(() => {
     const fetchJobs = async () => {
       try {
@@ -48,59 +47,75 @@ export default function Jobs() {
   };
 
   return (
-    <div className="px-6 py-8 bg-gray-50 min-h-screen">
-      <h2 className="text-3xl font-bold text-center mb-6 text-blue-700">AI Job Match Platform</h2>
+    <div className="px-6 py-10 bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen">
+      <h2 className="text-4xl font-extrabold text-center mb-8 text-blue-700 tracking-tight">
+        AI-Powered Job Match
+      </h2>
 
-      <div className="flex justify-center mb-8">
+      <div className="flex justify-center mb-10">
         <button
           onClick={handleMatchClick}
           disabled={recommending}
-          className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
+          className="bg-blue-600 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-700 transition duration-200 disabled:opacity-60"
         >
           {recommending ? '🔍 Finding Matches...' : '🎯 Find My Matches'}
         </button>
       </div>
 
-      {error && <p className="text-center text-red-500 mb-6">{error}</p>}
+      {error && <p className="text-center text-red-500 mb-6 font-medium">{error}</p>}
 
       {/* Recommended Jobs */}
       {recommended.length > 0 && (
-        <div className="mb-10">
-          <h3 className="text-xl font-semibold text-center mb-4 text-green-700">
+        <section className="mb-12">
+          <h3 className="text-2xl font-semibold text-center text-green-700 mb-6">
             🎯 Top 3 Recommended Jobs for You
           </h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {recommended.map((job) => (
-              <div key={job._id} className="bg-green-50 border-l-4 border-green-500 p-4 rounded shadow">
-                <h4 className="text-lg font-bold">{job.title}</h4>
-                <p className="text-sm text-gray-600">{job.company} – {job.location}</p>
-                <p className="mt-1 text-sm">Skills: {job.skillsRequired.join(', ')}</p>
-                <p className="mt-1 text-sm">Type: {job.jobType}</p>
-                <p className="mt-1 text-sm font-semibold text-green-700">
-                  Match Score: {(job.score * 100).toFixed(1)}%
+              <div
+                key={job._id}
+                className="bg-green-50 border-l-4 border-green-500 p-5 rounded-lg shadow hover:shadow-md transition"
+              >
+                <h4 className="text-lg font-bold text-gray-800">{job.title}</h4>
+                <p className="text-sm text-gray-600">
+                  {job.company} – {job.location}
+                </p>
+                <p className="mt-1 text-sm">🛠 Skills: {job.skillsRequired.join(', ')}</p>
+                <p className="mt-1 text-sm">📍 Type: {job.jobType}</p>
+                <p className="mt-2 text-sm font-semibold text-green-700">
+                  ✅ Match Score: {(job.score * 100).toFixed(1)}%
                 </p>
               </div>
             ))}
           </div>
-          <hr className="border-gray-300 mb-6" />
-        </div>
+          <hr className="mt-10 border-gray-300" />
+        </section>
       )}
 
       {/* All Jobs */}
-      <h3 className="text-xl font-semibold mb-4 text-center">📄 All Job Listings</h3>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {jobs.map((job) => (
-          <div key={job._id} className="bg-white border p-4 rounded shadow">
-            <h4 className="text-lg font-bold">{job.title}</h4>
-            <p className="text-sm text-gray-600">{job.company} – {job.location}</p>
-            <p className="mt-1 text-sm">Skills: {job.skillsRequired.join(', ')}</p>
-            <p className="mt-1 text-sm">Type: {job.jobType}</p>
-          </div>
-        ))}
-      </div>
+      <section>
+        <h3 className="text-2xl font-semibold text-center mb-6 text-gray-800">
+          📄 All Job Listings
+        </h3>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {jobs.map((job) => (
+            <div
+              key={job._id}
+              className="bg-white border border-gray-200 p-5 rounded-lg shadow-sm hover:shadow-md transition"
+            >
+              <h4 className="text-lg font-bold text-gray-800">{job.title}</h4>
+              <p className="text-sm text-gray-600">
+                {job.company} – {job.location}
+              </p>
+              <p className="mt-1 text-sm">🛠 Skills: {job.skillsRequired.join(', ')}</p>
+              <p className="mt-1 text-sm">📍 Type: {job.jobType}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
       {loading && (
-        <p className="text-center mt-10 text-gray-500">Loading jobs...</p>
+        <p className="text-center mt-10 text-gray-500 text-sm">Loading jobs...</p>
       )}
     </div>
   );
