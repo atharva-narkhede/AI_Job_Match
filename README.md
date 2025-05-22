@@ -6,7 +6,7 @@ An end-to-end job discovery platform that leverages **Cohere embeddings** to mat
 
 ## 📸 Screenshots
 
-
+<img src="https://github.com/user-attachments/assets/bed44242-2a7d-40e8-b190-adeda1ed2940" alt="Job Match UI" width="600"/>
 
 ---
 
